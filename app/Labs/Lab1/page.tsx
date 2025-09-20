@@ -84,10 +84,70 @@ export default function Lab1() {
           </thead>
           <tbody>{/* table body */}
             <tr>{/* table row */}
-              <td>Q1</td>{/* table data / cell */}
+              <td>Q1</td>
               <td>HTML</td>
               <td>2/3/21</td>
               <td>85</td>
+            </tr>
+            <tr>{/* table row */}
+              <td>Q2</td>
+              <td>CSS</td>
+              <td>2/17/21</td>
+              <td>95</td>
+            </tr>
+            <tr>{/* table row */}
+              <td>Q2</td>
+              <td>TypeScript</td>
+              <td>3/1/21</td>
+              <td>90</td>
+            </tr>
+            <tr>{/* table row */}
+              <td>Q3</td>
+              <td>Java</td>
+              <td>3/14/21</td>
+              <td>100</td>
+            </tr>
+            <tr>{/* table row */}
+              <td>Q4</td>
+              <td>Python</td>
+              <td>3/19/21</td>
+              <td>80</td>
+            </tr>
+            <tr>{/* table row */}
+              <td>Q5</td>
+              <td>C++</td>
+              <td>3/26/21</td>
+              <td>91</td>
+            </tr>
+            <tr>{/* table row */}
+              <td>Q6</td>
+              <td>Ruby</td>
+              <td>4/1/21</td>
+              <td>89</td>
+            </tr>
+            <tr>{/* table row */}
+              <td>Q7</td>
+              <td>Swift</td>
+              <td>4/12/21</td>
+              <td>100</td>
+            </tr>
+            <tr>{/* table row */}
+              <td>Q8</td>
+              <td>Kotlin</td>
+              <td>4/23/21</td>
+              <td>80</td>
+            </tr>
+            <tr>{/* table row */}
+              <td>Q9</td>
+              <td>Unity</td>
+              <td>4/30/21</td>
+              <td>88</td>
+            </tr>
+            <tr>{/* table row */}
+              <td>Q10</td>
+              <td>Assembly</td>
+              <td>5/7/21</td>
+              <td>92</td>
             </tr>
           </tbody>
           <tfoot>{/* table row */}
@@ -98,6 +158,14 @@ export default function Lab1() {
           </tfoot>
         </table>
       </div>
+      <div id="wd-images">
+      <h4>Image tag</h4>
+      Loading an image from the internet: <br />
+      <img id="wd-starship" width="400px"   src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" />
+      <br />
+      Loading a local image:
+      <br />
+      <img id="wd-teslabot" src="/images/Teslabot.jpg" height="200px" /></div>
       <div id="wd-forms">
         <h4>Form Elements</h4>
         <form id="wd-text-fields">
