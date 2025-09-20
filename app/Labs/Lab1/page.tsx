@@ -7,6 +7,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 export default function Lab1() {
   return (
     <div id="wd-lab1">
+      <h2>Jeffrey Vittini Ruiz - Section</h2>
       <h2>Lab 1</h2>
       <h3>HTML Examples</h3>
       <div id="wd-h-tag">
@@ -66,7 +67,7 @@ export default function Lab1() {
         <ul id="wd-my-books">
           <li>Dune</li>
           <li>Lord of the Rings</li>
-          <li>Ender's Game</li>
+          <li>Enders Game</li>
           <li>Red Mars</li>
           <li>The Forever War</li>
         </ul>
@@ -188,7 +189,6 @@ export default function Lab1() {
           <label htmlFor="wd-text-fields-last-name">Last name:</label>
           <input type="text" id="wd-text-fields-last-name" placeholder="Doe"
             value="Wonderland" title="The last name" />
-          {/* copy rest of form elements here  */}
         </form>
       </div>
       <h5>Text boxes</h5>
