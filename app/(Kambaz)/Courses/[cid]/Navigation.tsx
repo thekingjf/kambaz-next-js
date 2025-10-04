@@ -16,8 +16,6 @@ export default function CourseNavigation() {
       <Link href={`/Courses/${cid}/Zoom`}>Zoom</Link><br/>
       <Link href={`/Courses/${cid}/Assignments`}>
           Assignments</Link><br/>
-      <Link href={`/Courses/${cid}/Assignments/${aid}`}>
-          Assignment Editor</Link><br/>
       <Link href={`/Courses/${cid}/Quizzes`}>Quizzes
         </Link><br/>
       <Link href={`/Courses/${cid}/Grades`}>Grades</Link><br/>
