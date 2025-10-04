@@ -1,7 +1,9 @@
 "use client";
-
+import AssignmentControls from "./AssignmentControls";
 export default function AssignmentEditor() {
   return (
+    <div>
+    <AssignmentControls></AssignmentControls>
     <div id="wd-assignments-editor">
       <h3>Assignment Name</h3>
       <input id="wd-name" value="A1 - ENV + HTML" /><br /><br />
@@ -121,5 +123,6 @@ export default function AssignmentEditor() {
             <button id="wd-cancel-button" onClick={() => alert("Changes Not Saved!")} type="button">Cancel</button>
         </tr>
       </table>
+    </div>
     </div>
 );}

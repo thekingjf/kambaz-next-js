@@ -1,14 +1,11 @@
 import Link from "next/link";
+import AssignmentControls from "./[aid]/AssignmentControls";
 
 export default function Assignments() {
   return (
+    <div>
+    <AssignmentControls></AssignmentControls>
     <div id="wd-assignments">
-      <input
-        placeholder="Search for Assignments"
-        id="wd-search-assignment"
-      />
-      <button id="wd-add-assignment-group">+ Group</button>
-      <button id="wd-add-assignment">+ Assignment</button>
       <h3 id="wd-assignments-title">
         ASSIGNMENTS 40% of Total <button>+</button>{" "}
       </h3>
@@ -44,6 +41,7 @@ export default function Assignments() {
           12:00am | <strong> Due </strong>May 27 at 11:59pm | 100 pts
         </li>
       </ul>
+    </div>
     </div>
   );
 }
