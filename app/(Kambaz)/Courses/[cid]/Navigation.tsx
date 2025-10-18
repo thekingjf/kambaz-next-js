@@ -1,26 +1,33 @@
 "use client"
 
 import Link from "next/link";
-import { useParams } from 'next/navigation';
+import { useParams, usePathname  } from 'next/navigation';
 
 export default function CourseNavigation() {
   const { cid } = useParams<{ cid: string }>();
-  const { aid } = useParams<{ aid: string }>();
+  const pathname = usePathname();
+  const links = [
+   { href: "Home",         label: "Home"        },
+   { href: "Modules",      label: "Modules"     },
+   { href: "Piazza",       label: "Piazza"      },
+   { href: "Zoom",         label: "Zoom"        },
+   { href: "Assignments",  label: "Assignments" },
+   { href: "Quizzes",      label: "Quizzes"     },
+   { href: "Grades",       label: "Grades"      },
+   { href: "People/Table", label: "People"      },
+ ];
+
 
   return (
-    <div className="wd list-group fs-5 rounded-0">
-      <Link href={`/Courses/${cid}/Home`} className="list-group-item active border-0">
-        Home </Link><br/>
-      <Link href={`/Courses/${cid}/Modules`} className="list-group-item text-danger border">
-      Modules
-        </Link><br/>
-      <Link href={`/Courses/${cid}/Piazza`} className="list-group-item text-danger border">Piazza</Link><br/>
-      <Link href={`/Courses/${cid}/Zoom`} className="list-group-item text-danger border-0">Zoom</Link><br/>
-      <Link href={`/Courses/${cid}/Assignments`} className="list-group-item text-danger border-0">
-          Assignments</Link><br/>
-      <Link href={`/Courses/${cid}/Quizzes`} className="list-group-item text-danger border-0">Quizzes
-        </Link><br/>
-      <Link href={`/Courses/${cid}/Grades`} className="list-group-item text-danger border-0">Grades</Link><br/>
-      <Link href={`/Courses/${cid}/People/Table`} className="list-group-item text-danger border-0">People</Link><br/>
-    </div>
-  );}
+   <div className="rounded-0 border-0 list-group">
+     {links.map(({ href, label }) => (
+       <Link key={href}
+         className={`list-group-item ${
+           pathname.endsWith(href) ?
+           "active" : "text-danger border-0" }`}
+         href={`/Courses/${cid}/${href}`} >
+         {label} </Link>
+     ))}
+   </div>
+ );}
+
