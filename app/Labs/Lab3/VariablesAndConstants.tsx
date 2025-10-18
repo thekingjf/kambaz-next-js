@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export default function VariablesAndConstants() {
  var functionScoped = 2;
  let blockScoped = 5;

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export default function BooleanVariable() {
   let numberVariable = 123,	floatingPointNumber = 234.345;
     let true1 = true, false1 = false, false2 = true1 && false1;

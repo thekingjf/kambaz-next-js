@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React from "react";
 import Math, { add, subtract, multiply, divide } from "./Math";
 import * as Matematica from "./Math";

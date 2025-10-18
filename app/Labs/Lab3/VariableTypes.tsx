@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export default function VariableTypes() {
   let numberVariable = 123;
   let floatingPointNumber = 234.345;

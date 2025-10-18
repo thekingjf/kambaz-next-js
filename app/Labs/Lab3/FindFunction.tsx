@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export default function FindFunction() {
   let numberArray1 = [1, 2, 3, 4, 5];
   let stringArray1 = ["string1", "string2", "string3"];
