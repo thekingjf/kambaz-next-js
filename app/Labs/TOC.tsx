@@ -1,37 +1,28 @@
 "use client";
-import { Nav, NavItem, NavLink } from "react-bootstrap";
-import { usePathname } from "next/navigation";
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Nav, NavItem, NavLink } from "react-bootstrap";
 export default function TOC() {
-   const pathname = usePathname();
- return (
-   <Nav variant="pills">
-     <NavItem>
-       <NavLink href="/Labs" as={Link} className={`nav-link
-                ${pathname.endsWith("Labs") ? "active" : ""}`}>
-         Labs </NavLink>
-     </NavItem>
-     <NavItem>
-       <NavLink href="/Labs/Lab1" as={Link} className={`nav-link
-                ${pathname.endsWith("Lab1") ? "active" : ""}`}>
-         Lab 1 </NavLink>
-     </NavItem>
-     <NavItem>
-       <NavLink href="/Labs/Lab2" as={Link} className={`nav-link
-                ${pathname.endsWith("Lab2") ? "active" : ""}`}>
-         Lab 2 </NavLink>
-     </NavItem>
-     <NavItem>
-       <NavLink href="/Labs/Lab3" as={Link} className={`nav-link
-                ${pathname.endsWith("Lab3") ? "active" : ""}`}>
-         Lab 3 </NavLink>
-     </NavItem>
-     <NavItem>
-       <NavLink href="/" as={Link}>
-         Kambaz </NavLink>
-     </NavItem>
-     <NavItem>
-       <NavLink href="https://github.com/thekingjf/kambaz-next-js">
-         My GitHub</NavLink>
-     </NavItem>
-   </Nav> );}
+ const pathname = usePathname();
+ const links = [
+   { href: "/Labs",     label: "Labs",  id: "wd-labs-link" },
+   { href: "/Labs/Lab1",label: "Lab1", id: "wd-lab1-link" },
+   { href: "/Labs/Lab2",label: "Lab2", id: "wd-lab2-link" },
+   { href: "/",         label: "Kambaz",id: "wd-kambaz-link"},
+   { href: "https://github.com/thekingjf/kambaz-next-js",
+                        label: "My GitHub",
+                        id: "wd-github-link" } ];
+    return (
+      <Nav variant="pills">
+        {links.map((link) => (
+        <NavItem key={link.id}>
+          <NavLink as={Link}
+                  className={pathname.endsWith(link.href)
+                        ? "active" : ""}
+                  href={link.href}
+                  id={link.id}>
+              {link.label}
+          </NavLink>
+        </NavItem> ))} </Nav>
+    );}
