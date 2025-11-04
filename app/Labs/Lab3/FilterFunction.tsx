@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function FilterFunction() {
   let numberArray1 = [1, 2, 4, 5, 6];

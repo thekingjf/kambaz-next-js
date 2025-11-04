@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function SimpleArrays() {
   var functionScoped = 2;

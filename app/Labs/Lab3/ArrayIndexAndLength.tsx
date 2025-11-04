@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function ArrayIndexAndLength() {
   let numberArray1 = [1, 2, 3, 4, 5];

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function IfElse() {
     let true1 = true, false1 = false;

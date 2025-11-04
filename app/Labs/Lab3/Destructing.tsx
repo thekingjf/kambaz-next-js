@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function Destructing() {
     const person = { name: "John", age: 25 };

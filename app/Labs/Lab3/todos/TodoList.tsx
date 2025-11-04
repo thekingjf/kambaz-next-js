@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import TodoItem from "./TodoItem";
 import todos from "./todos.json";
 const TodoList = () => {
