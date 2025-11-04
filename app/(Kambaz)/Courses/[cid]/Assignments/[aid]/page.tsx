@@ -1,6 +1,6 @@
 "use client";
 import "./style.css";
-import { useParams } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
 import * as db from "./../../../../Database";
 
 type Assignment = { 
@@ -46,6 +46,9 @@ export default function AssignmentEditor() {
 
   const assignment = assignments.find(a => a._id === aid && a.course === cid);
   const detail = detailsMap[aid];
+
+  if (!assignment || !detail) return notFound();
+
 
   const toYMD = (iso: string) => new Date(iso).toISOString().slice(0, 10);
   return (
