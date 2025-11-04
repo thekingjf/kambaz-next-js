@@ -30,11 +30,23 @@ import Square from "./Square";
 import Highlight from "./Highlight";
 import PathParameters from "./PathParameters";
 import AddPathParameters from "./add/[a]/[b]/page";
+import { useSelector } from "react-redux";
+import { RootState } from "../Lab4/store";
+import { ListGroup } from "react-bootstrap";
+
 
 export default function Lab3() {
+  const { todos } = useSelector((state: RootState) => state.todosReducer);
   return (
     <div id="wd-lab3">
-        
+      <ListGroup>
+        {todos.map((todo: any) => (
+          <ListGroup.Item key={todo.id}>
+            {todo.title}
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
+      <hr />
       <h3>Lab 3</h3>
       <AddPathParameters />
       <PathParameters />
