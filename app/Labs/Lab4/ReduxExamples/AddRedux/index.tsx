@@ -2,7 +2,7 @@ import { useSelector, useDispatch }
   from "react-redux";
 import { useState } from "react";
 import { add } from "./addReducer";
-import { RootState } from "../../store";
+import { RootState } from "../../store/index"
 
 export default function AddRedux() {
   const [a, setA] = useState(12);
