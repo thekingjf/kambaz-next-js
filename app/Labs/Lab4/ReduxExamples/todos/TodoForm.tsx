@@ -4,9 +4,10 @@ import { useSelector, useDispatch }
   from "react-redux";
 import { setTodo, addTodo, updateTodo }
   from "./todosReducer";
+import { RootState } from "../../store";
 
 export default function TodoForm() {
-    const todo = useSelector((state: any) =>
+    const todo = useSelector((state: RootState) =>
        state.todosReducer.todo) as Todo;
      const dispatch = useDispatch();
 

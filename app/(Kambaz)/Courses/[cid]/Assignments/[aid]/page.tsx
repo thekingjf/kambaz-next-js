@@ -1,29 +1,29 @@
 "use client";
 import "./style.css";
-import { useParams, notFound } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import * as db from "./../../../../Database";
+import { useSelector, useDispatch } from "react-redux";
+import { addAssignment, updateAssignment, deleteAssignment } from "../reducer";
+import { useState } from "react";
+import { RootState } from "../../../../store"
 
-type Assignment = { 
-  _id: string; 
-  title: string; 
-  course: string 
+type Assignment = {
+  _id: string;
+  title: string;
+  course: string;
 };
 
 type AssignmentDetail = {
   points: number;
-  group: 
-  "Assignments" 
-  | "Projects" 
-  | "Quizzes" 
-  | "Exams" 
-  | "Solo" 
-  | "Duo";
-  displayGradeAs: 
-  "Percent" 
-  | "Fraction";
-  submissionType: 
-  "Online" 
-  | "In Person";
+  group:
+    | "Assignments"
+    | "Projects"
+    | "Quizzes"
+    | "Exams"
+    | "Solo"
+    | "Duo";
+  displayGradeAs: "Percent" | "Fraction";
+  submissionType: "Online" | "In Person";
   onlineEntryOptions: (
     | "Text Entry"
     | "Website URL"
@@ -36,25 +36,81 @@ type AssignmentDetail = {
   dueAt: string;
 };
 
-
 export default function AssignmentEditor() {
-
   const { cid, aid } = useParams() as { cid: string; aid: string };
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  const assignments = db.assignments as Assignment[];
+  const assignments = useSelector(
+    (state: RootState) => state.assignment.assignments
+  ) as Assignment[];
+
+  const existingAssignment = assignments.find(
+    (a) => a._id === aid && a.course === cid
+  );
+
+  const isNew = !existingAssignment;
+
+  const assignment: Assignment = existingAssignment || {
+    _id: aid,
+    title: "",
+    course: cid,
+  };
+
   const detailsMap = db.assignmentDetails as Record<string, AssignmentDetail>;
+  const defaultDetail: AssignmentDetail = {
+    points: 100,
+    group: "Assignments",
+    displayGradeAs: "Percent",
+    submissionType: "Online",
+    onlineEntryOptions: [],
+    availableFrom: new Date().toISOString(),
+    availableUntil: new Date().toISOString(),
+    dueAt: new Date().toISOString(),
+  };
 
-  const assignment = assignments.find(a => a._id === aid && a.course === cid);
-  const detail = detailsMap[aid];
-
-  if (!assignment || !detail) return notFound();
-
+  const detail = detailsMap[aid] || defaultDetail;
 
   const toYMD = (iso: string) => new Date(iso).toISOString().slice(0, 10);
+
+  const [title, setTitle] = useState(assignment.title);
+
+  const handleSave = () => {
+    const updatedAssignment: Assignment = {
+      ...assignment,
+      title,
+    };
+
+    if (isNew) {
+      dispatch(addAssignment(updatedAssignment));
+    } else {
+      dispatch(updateAssignment(updatedAssignment));
+    }
+
+    router.push(`/Courses/${cid}/Assignments`);
+  };
+
+  const handleCancel = () => {
+    router.push(`/Courses/${cid}/Assignments`);
+  };
+
+  const handleDelete = () => {
+    if (!isNew) {
+      dispatch(deleteAssignment(assignment._id));
+    }
+    router.push(`/Courses/${cid}/Assignments`);
+  };
+
   return (
     <div id="wd-assignments-editor">
       <h6>Assignment Name</h6>
-      <input id="wd-name" defaultValue={assignment.title} /><br /><br />
+      <input
+        id="wd-name"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <br />
+      <br />
 
       <textarea id="wd-description" rows={10} cols={45}>
         The assignment is available online. Submit a link to the landing page of
@@ -105,7 +161,10 @@ export default function AssignmentEditor() {
           <label htmlFor="wd-submission-type">Submission Type</label>
           <td colSpan={2}>
             <div id="wd-sub-type-box">
-              <select id="wd-submission-type" defaultValue={detail.submissionType}>
+              <select
+                id="wd-submission-type"
+                defaultValue={detail.submissionType}
+              >
                 <option value="Online">Online</option>
                 <option value="In Person">In Person</option>
               </select>
@@ -116,7 +175,9 @@ export default function AssignmentEditor() {
                   <input
                     type="checkbox"
                     id="wd-text-entry"
-                    defaultChecked={detail.onlineEntryOptions.includes("Text Entry")}
+                    defaultChecked={detail.onlineEntryOptions.includes(
+                      "Text Entry"
+                    )}
                   />{" "}
                   Text Entry
                 </label>
@@ -125,7 +186,9 @@ export default function AssignmentEditor() {
                   <input
                     type="checkbox"
                     id="wd-website-url"
-                    defaultChecked={detail.onlineEntryOptions.includes("Website URL")}
+                    defaultChecked={detail.onlineEntryOptions.includes(
+                      "Website URL"
+                    )}
                   />{" "}
                   Website URL
                 </label>
@@ -134,7 +197,9 @@ export default function AssignmentEditor() {
                   <input
                     type="checkbox"
                     id="wd-media-recordings"
-                    defaultChecked={detail.onlineEntryOptions.includes("Media Recordings")}
+                    defaultChecked={detail.onlineEntryOptions.includes(
+                      "Media Recordings"
+                    )}
                   />{" "}
                   Media Recordings
                 </label>
@@ -143,7 +208,9 @@ export default function AssignmentEditor() {
                   <input
                     type="checkbox"
                     id="wd-student-annotation"
-                    defaultChecked={detail.onlineEntryOptions.includes("Student Annotation")}
+                    defaultChecked={detail.onlineEntryOptions.includes(
+                      "Student Annotation"
+                    )}
                   />{" "}
                   Student Annotation
                 </label>
@@ -152,7 +219,9 @@ export default function AssignmentEditor() {
                   <input
                     type="checkbox"
                     id="wd-file-upload"
-                    defaultChecked={detail.onlineEntryOptions.includes("File Uploads")}
+                    defaultChecked={detail.onlineEntryOptions.includes(
+                      "File Uploads"
+                    )}
                   />{" "}
                   File Uploads
                 </label>
@@ -173,31 +242,67 @@ export default function AssignmentEditor() {
 
             <div className="field">
               <label htmlFor="wd-due-date">Due</label>
-              <input type="date" id="wd-due-date" defaultValue={toYMD(detail.dueAt)} />
+              <input
+                type="date"
+                id="wd-due-date"
+                defaultValue={toYMD(detail.dueAt)}
+              />
             </div>
 
             <div className="row-2">
               <div className="field">
                 <label htmlFor="wd-available-from">Available from</label>
-                <input type="date" id="wd-available-from" defaultValue={toYMD(detail.availableFrom)} />
+                <input
+                  type="date"
+                  id="wd-available-from"
+                  defaultValue={toYMD(detail.availableFrom)}
+                />
               </div>
 
               <div className="field">
                 <label htmlFor="wd-available-until">Until</label>
-                <input type="date" id="wd-available-until" defaultValue={toYMD(detail.availableUntil)} />
+                <input
+                  type="date"
+                  id="wd-available-until"
+                  defaultValue={toYMD(detail.availableUntil)}
+                />
               </div>
             </div>
           </div>
         </td>
-
         <br />
-
         <tr>
-          <td></td>
-          <td align="right" valign="middle"></td>
-          <button id="wd-save-button" type="button">Save</button>
-          <button id="wd-cancel-button" type="button">Cancel</button>
+        <td></td>
+        <td align="right" valign="middle">
+          <button
+            id="wd-save-button"
+            type="button"
+            onClick={handleSave}
+            style={{ marginRight: 8 }}
+          >
+            Save
+          </button>
+          <button
+            id="wd-cancel-button"
+            type="button"
+            onClick={handleCancel}
+            style={{ marginRight: 8 }}
+          >
+            Cancel
+          </button>
+          {!isNew && (
+            <button
+              id="wd-delete-button"
+              type="button"
+              onClick={handleDelete}
+              style={{ color: "white", backgroundColor: "red" }}
+            >
+              Delete
+            </button>
+          )}
+        </td>
         </tr>
       </table>
     </div>
-);}
+  );
+}

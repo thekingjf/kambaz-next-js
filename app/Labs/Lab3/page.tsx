@@ -1,3 +1,5 @@
+"use client";
+
 import VariablesAndConstants from "./VariablesAndConstants";
 import VariableTypes from "./VariableTypes";
 import BooleanVariable from "./BooleanVariables";
@@ -16,7 +18,7 @@ import ForLoops from "./ForLoops";
 import MapFunction from "./MapFunction";
 import FindFunction from "./FindFunction";
 import FilterFunction from "./FilterFunction";
-import House from "./House"
+import House from "./House";
 import JsonStringify from "./JsonStringify";
 import TodoList from "./todos/TodoList";
 import Spreading from "./Spreading";
@@ -31,19 +33,33 @@ import Highlight from "./Highlight";
 import PathParameters from "./PathParameters";
 import AddPathParameters from "./add/[a]/[b]/page";
 
-export default function Lab3() {
+import { Provider, useSelector } from "react-redux";
+import { ListGroup } from "react-bootstrap";
+import store, { RootState } from "../Lab4/store";
+
+function Lab3Content() {
+  const { todos } = useSelector((state: RootState) => state.todosReducer);
+
   return (
     <div id="wd-lab3">
-        
       <h3>Lab 3</h3>
+      <ListGroup>
+        {todos.map((todo: any) => (
+          <ListGroup.Item key={todo.id}>{todo.title}</ListGroup.Item>
+        ))}
+      </ListGroup>
+      <hr />
       <AddPathParameters />
       <PathParameters />
       <Highlight>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipitratione eaque illo minus cum, saepe totam vel nihil repellat nemo explicabo excepturi consectetur. Modi omnis minus sequi maiores, provident voluptates.
-     </Highlight>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipitratione
+        eaque illo minus cum, saepe totam vel nihil repellat nemo explicabo
+        excepturi consectetur. Modi omnis minus sequi maiores, provident
+        voluptates.
+      </Highlight>
       <h3>JavaScript</h3>
       <h4>Square of 4</h4>
-      <Square> 4 </Square>
+      <Square>4</Square>
       <hr />
       <Add a={3} b={4} />
       <Styles />
@@ -77,4 +93,10 @@ export default function Lab3() {
   );
 }
 
-
+export default function Lab3Page() {
+  return (
+    <Provider store={store}>
+      <Lab3Content />
+    </Provider>
+  );
+}

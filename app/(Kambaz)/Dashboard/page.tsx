@@ -1,36 +1,27 @@
 "use client"
 import { useState } from "react";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewCourse, deleteCourse, updateCourse }
+  from "../Courses/[cid]/reducer";
 import Image from "next/image";
 import * as db from "../Database";
 import { v4 as uuidv4 } from "uuid";
-import { useSelector }
-  from "react-redux";
-
 import { Row, Col, Card, CardImg, CardBody, CardTitle, CardText, Button } from "react-bootstrap";
+import { RootState } from "../store";
+
 export default function Dashboard() {
+  const { courses } = useSelector((state: RootState) => state.coursesReducer);
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { enrollments } = db;
-  const [courses, setCourses] = useState<any[]>(db.courses);
-  const course: any = {
-    _id: "0",
-    name: "New Course",
-    number: "New Number",
-    startDate: "2023-09-10",
-    endDate: "2023-12-15",
+  const [course, setCourse] = useState<any>({
+    _id: "0", name: "New Course", number: "New Number",
+    startDate: "2023-09-10", endDate: "2023-12-15",
     image: "/images/reactjs.jpg",
     description: "New Description"
-  };
-
-  const addNewCourse = () => {
-    const newCourse = {
-      ...course, _id: uuidv4() };
-    setCourses([
-      ...courses,
-      newCourse
-    ]);
-  };
-
+  });
+  
   if (!currentUser) {
     return <div>Loading...</div>;
   }
@@ -41,8 +32,22 @@ export default function Dashboard() {
     <h5>New Course
           <button
             className="btn btn-primary float-end"
-            onClick={addNewCourse} > Add </button>
-      </h5><hr />
+            onClick={() => dispatch(addNewCourse(course))} > Add 
+          </button>
+    </h5>
+    <Button className="float-end me-2"
+                onClick={() => dispatch(updateCourse(course))}>
+          Update
+    </Button>
+    <br />
+      <input value={course.name}
+             className="form-control mb-2" onChange={(e) => setCourse(
+              { ...course, name: e.target.value }) } />
+      <textarea value={course.description}
+                className="form-control" onChange={(e) => setCourse(
+                  { ...course, description: e.target.value }) } />
+
+    <hr />
 
       <h2 id="wd-dashboard-published">Published Courses
           ({courses.length})</h2> <hr />
@@ -72,7 +77,23 @@ export default function Dashboard() {
                            overflow-hidden" style={{ height: "100px" }}>
                           {course.description} 
         </CardText>
-        <Button variant="primary">Go</Button>
+        <Button className="btn btn-primary">
+                    Go 
+        </Button>
+        <Button id="wd-edit-course-click"
+          onClick={(event) => {
+            event.preventDefault();
+            setCourse(course);
+          }}
+          className="me-2 float-end" >
+          Edit
+        </Button>
+        <Button onClick={(event) => {
+                event.preventDefault();
+                dispatch(deleteCourse(course._id));
+              }} >
+          Delete 
+        </Button>
         </CardBody>
         </Link>
         </Card>

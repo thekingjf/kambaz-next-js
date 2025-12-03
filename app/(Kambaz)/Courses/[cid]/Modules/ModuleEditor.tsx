@@ -12,19 +12,18 @@ export default function ModuleEditor({ show, handleClose,
           {dialogTitle}
         </Modal.Title>
        </Modal.Header>
-        <Modal.Body>
-        <FormControl value={moduleName}
-            onChange={(e) => { setModuleName(e.target.value); }} />
-        </Modal.Body>
-        <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-            Cancel </Button>
-        <Button variant="primary"
-            onClick={() => {
-            addModule();
-            handleClose();
-            }} > Add Module </Button>
-        </Modal.Footer>
-        </Modal>
+       <Modal.Body>
+    <FormControl value={moduleName}
+     onChange={(e) => { setModuleName(e.target.value); }} />
+   </Modal.Body>
+   <Modal.Footer>
+    <Button variant="secondary" onClick={handleClose}>
+      Cancel </Button>
+    <Button variant="primary"
+     onClick={() => {
+      addModule();
+      handleClose();
+     }} > Add Module </Button>
+   </Modal.Footer>
+  </Modal>
 );}
-   

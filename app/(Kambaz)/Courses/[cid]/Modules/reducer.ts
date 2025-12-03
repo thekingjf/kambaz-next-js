@@ -19,22 +19,22 @@ const modulesSlice = createSlice({
                        newModule];
     },
     deleteModule: (state, { payload: moduleId }) => {
-        state.modules = state.modules.filter(
-          (m) => m._id !== moduleId);
-      },
-      
-      updateModule: (state, { payload: module }) => {
-        state.modules = state.modules.map((m) =>
-          m._id === module._id ? module : m
-        );
-      },
-      editModule: (state, { payload: moduleId }) => {
-        state.modules = state.modules.map((m) =>
-          m._id === moduleId ? { ...m, editing: true } : m
-        );
-      },
+      state.modules = state.modules.filter(
+        (m) => m._id !== moduleId);
     },
-  });
-  export const { addModule, deleteModule,
-    updateModule, editModule } = modulesSlice.actions;
-  export default modulesSlice.reducer;      
+    
+    updateModule: (state, { payload: module }) => {
+      state.modules = state.modules.map((m) =>
+        m._id === module._id ? module : m
+      );
+    },
+    editModule: (state, { payload: moduleId }) => {
+      state.modules = state.modules.map((m) =>
+        m._id === moduleId ? { ...m, editing: true } : m
+      );
+    },
+  },
+});
+export const { addModule, deleteModule,
+  updateModule, editModule } = modulesSlice.actions;
+export default modulesSlice.reducer;    
