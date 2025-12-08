@@ -2,6 +2,7 @@ import Link from "next/link";
 export default function Labs() {
  return (
    <div id="wd-labs">
+    <h2>Jeffrey Vittini Ruiz - Section 1</h2>
      <h1>Labs</h1>
      <ul>
        <li>
@@ -16,6 +17,10 @@ export default function Labs() {
         <li>
          <Link href="/Labs/Lab4" id="wd-lab4-link">
            Lab 4: Redux </Link> </li>
+        <li>
+         <Link href="/Labs/Lab5" id="wd-lab4-link">
+           Lab 5:  </Link> </li>
      </ul>
+
    </div>
  );}
