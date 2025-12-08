@@ -11,7 +11,6 @@ type Course = {
 
 export default function CoursesLayout({ children }: { children: ReactNode }) {
   const { cid } = useParams<{ cid: string }>();
-
   const { courses: courseList } = useSelector(
     (state: RootState) => state.coursesReducer
   ) as { courses: Course[] };
