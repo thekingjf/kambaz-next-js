@@ -15,7 +15,7 @@ export default function TOC() {
    { href: "/",         label: "Kambaz",id: "wd-kambaz-link"},
    { href: "https://github.com/thekingjf/kambaz-next-js",
                         label: "My GitHub",
-                        id: "wd-github-link" }
+                        id: "wd-github-link" },
    { href: "https://github.com/thekingjf/kambaz-node-server-app",
                         label: "My server GitHub",
                         id: "wd-server-github-link" } ];
