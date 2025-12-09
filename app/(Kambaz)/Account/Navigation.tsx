@@ -7,16 +7,12 @@ import { RootState } from "../store";
 
 
 export default function AccountNavigation() {
-  const { currentUser } = useSelector(
-    (state: RootState) => state.accountReducer);
-  const links = currentUser ? ["Profile"] :
-    ["Signin", "Signup"];
-  const pathname = usePathname();
-
- return (
-   <div>
-     <Link href="Signin"> Signin </Link> <br />
-     <Link href="Signup"> Signup </Link> <br />
-     <Link href="Profile"> Profile </Link> <br />
-   </div>
-);}
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer) as any;
+  const pathname = usePathname() ?? "";
+  return (
+    <Nav variant="pills">
+      {currentUser && currentUser.role === "ADMIN" && (
+        <NavLink as={Link} href={`/Account/Users`}  active={pathname.endsWith('Users')}> Users </NavLink> )}
+    </Nav>
+ );}
+ 

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import AssignmentControls from "./[aid]/AssignmentControls";
-import * as db from "./../../../Database";
 import { useParams } from "next/navigation";
 import CourseNavigation from "../Navigation";
 import { useSelector, useDispatch } from "react-redux";
@@ -62,8 +61,6 @@ export default function Assignments() {
     (state: RootState) => state.assignment.assignments
   ) as Assignment[];
 
-  const { assignmentDetails } = db;
-  const details = assignmentDetails as DetailMap;
 
   const courseAssignments = list.filter((a) => a.course === cid);
 
@@ -94,7 +91,6 @@ export default function Assignments() {
 
               <ListGroup className="wd-assignment-list">
                 {courseAssignments.map((a) => {
-                  const d = details[a._id];
                   return (
                     <ListGroupItem
                       key={a._id}
@@ -108,13 +104,7 @@ export default function Assignments() {
                           {a.title}
                         </Link>
 
-                        {d && (
-                          <div className="mt-1">
-                            Multiple Modules | <strong>Not available until</strong>{" "}
-                            {fmtDate(d.availableFrom)} | <strong>Due</strong>{" "}
-                            {fmtDate(d.dueAt)} | {d.points} pts
-                          </div>
-                        )}
+      
                       </div>
 
                       <button

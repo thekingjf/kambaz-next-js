@@ -1,7 +1,6 @@
 "use client";
 import "./style.css";
 import { useParams, useRouter } from "next/navigation";
-import * as db from "./../../../../Database";
 import { useSelector, useDispatch } from "react-redux";
 import { addAssignment, updateAssignment, deleteAssignment } from "../reducer";
 import { useState } from "react";
@@ -57,7 +56,7 @@ export default function AssignmentEditor() {
     course: cid,
   };
 
-  const detailsMap = db.assignmentDetails as Record<string, AssignmentDetail>;
+  //const detailsMap = db.assignmentDetails as Record<string, AssignmentDetail>;
   const defaultDetail: AssignmentDetail = {
     points: 100,
     group: "Assignments",
@@ -69,7 +68,7 @@ export default function AssignmentEditor() {
     dueAt: new Date().toISOString(),
   };
 
-  const detail = detailsMap[aid] || defaultDetail;
+  //const detail = detailsMap[aid] || defaultDetail;
 
   const toYMD = (iso: string) => new Date(iso).toISOString().slice(0, 10);
 
@@ -123,7 +122,7 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-points">Points</label>
           </td>
           <td align="left" valign="middle">
-            <input id="wd-points" defaultValue={detail.points} />
+            
           </td>
         </tr>
 
@@ -132,7 +131,7 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-group">Assignment Group</label>
           </td>
           <td align="left" valign="middle">
-            <select id="wd-group" defaultValue={detail.group}>
+            <select id="wd-group">
               <option value="Assignments">ASSIGNMENTS</option>
               <option value="Projects">PROJECTS</option>
               <option value="Quizzes">QUIZZES</option>
@@ -148,7 +147,7 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-display-grade-as">Display Grade as</label>
           </td>
           <td align="left" valign="middle">
-            <select id="wd-display-grade-as" defaultValue={detail.displayGradeAs}>
+            <select id="wd-display-grade-as">
               <option value="Percent">Percentage</option>
               <option value="Fraction">Fraction</option>
             </select>
@@ -163,7 +162,6 @@ export default function AssignmentEditor() {
             <div id="wd-sub-type-box">
               <select
                 id="wd-submission-type"
-                defaultValue={detail.submissionType}
               >
                 <option value="Online">Online</option>
                 <option value="In Person">In Person</option>
@@ -175,9 +173,6 @@ export default function AssignmentEditor() {
                   <input
                     type="checkbox"
                     id="wd-text-entry"
-                    defaultChecked={detail.onlineEntryOptions.includes(
-                      "Text Entry"
-                    )}
                   />{" "}
                   Text Entry
                 </label>
@@ -186,9 +181,7 @@ export default function AssignmentEditor() {
                   <input
                     type="checkbox"
                     id="wd-website-url"
-                    defaultChecked={detail.onlineEntryOptions.includes(
-                      "Website URL"
-                    )}
+    
                   />{" "}
                   Website URL
                 </label>
@@ -197,9 +190,6 @@ export default function AssignmentEditor() {
                   <input
                     type="checkbox"
                     id="wd-media-recordings"
-                    defaultChecked={detail.onlineEntryOptions.includes(
-                      "Media Recordings"
-                    )}
                   />{" "}
                   Media Recordings
                 </label>
@@ -208,9 +198,7 @@ export default function AssignmentEditor() {
                   <input
                     type="checkbox"
                     id="wd-student-annotation"
-                    defaultChecked={detail.onlineEntryOptions.includes(
-                      "Student Annotation"
-                    )}
+                    
                   />{" "}
                   Student Annotation
                 </label>
@@ -219,9 +207,7 @@ export default function AssignmentEditor() {
                   <input
                     type="checkbox"
                     id="wd-file-upload"
-                    defaultChecked={detail.onlineEntryOptions.includes(
-                      "File Uploads"
-                    )}
+                    
                   />{" "}
                   File Uploads
                 </label>
@@ -245,7 +231,6 @@ export default function AssignmentEditor() {
               <input
                 type="date"
                 id="wd-due-date"
-                defaultValue={toYMD(detail.dueAt)}
               />
             </div>
 
@@ -255,7 +240,6 @@ export default function AssignmentEditor() {
                 <input
                   type="date"
                   id="wd-available-from"
-                  defaultValue={toYMD(detail.availableFrom)}
                 />
               </div>
 
@@ -264,7 +248,6 @@ export default function AssignmentEditor() {
                 <input
                   type="date"
                   id="wd-available-until"
-                  defaultValue={toYMD(detail.availableUntil)}
                 />
               </div>
             </div>
