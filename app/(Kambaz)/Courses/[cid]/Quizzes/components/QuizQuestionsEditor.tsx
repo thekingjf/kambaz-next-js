@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { Badge, Button, ListGroup } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import * as quizClient from "../client";
 import QuestionItem, { Question as QuestionModel,} from "./QuestionItem";
 
@@ -11,6 +11,7 @@ type Props = {
 
 export default function QuizQuestionsEditor({ quizId }: Props) {
     const [questions, setQuestions] = useState<QuestionModel[]>([]);
+    const [lastNewQuestionId, setLastNewQuestionId] = useState<string | null>(null);
 
     const loadQuestions = async () => {
         const data = await quizClient.findQuestionsForQuiz(quizId);
@@ -20,6 +21,7 @@ export default function QuizQuestionsEditor({ quizId }: Props) {
     const handleNewQuestion = async () => {
         const newQuestion = await quizClient.createQuestionForQuiz(quizId);
         setQuestions((prev) => [...prev, newQuestion]);
+        setLastNewQuestionId(newQuestion._id);
     };
 
     useEffect(() => {
@@ -41,7 +43,7 @@ export default function QuizQuestionsEditor({ quizId }: Props) {
                     </div>
                 </div>
                 <Button variant="primary" onClick={handleNewQuestion}>
-                    + New Question
+                    + Question
                 </Button>
             </div>
     
@@ -56,6 +58,7 @@ export default function QuizQuestionsEditor({ quizId }: Props) {
                 <QuestionItem
                     key={q._id}
                     question={q}
+                    initiallyEditing={q._id === lastNewQuestionId}
                     onUpdated={(updated) => 
                         setQuestions((prev) =>
                             prev.map((qq) =>

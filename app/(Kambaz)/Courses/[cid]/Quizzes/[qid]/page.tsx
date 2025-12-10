@@ -27,6 +27,7 @@ export default function QuizDetails() {
     const { cid, qid } = useParams() as { cid: string; qid: string };
     const router = useRouter();
     const [quiz, setQuiz] = useState<Quiz | null>(null);
+    const [totalPoints, setTotalPoints] = useState<number | null>(null);
 
     const loadQuiz = async () => {
         const data = await quizClient.findQuizById(qid);
@@ -45,10 +46,16 @@ export default function QuizDetails() {
         router.push(`/Courses/${cid}/Quizzes/${qid}/preview`);
     }
 
-    
+    const loadTotalPoints = async () => {
+        const questions = await quizClient.findQuestionsForQuiz(qid);
+        const sum = questions.reduce(
+            (acc: number, q: any) => acc + (typeof q.points === "number" ? q.points : 0), 0);
+        setTotalPoints(sum);
+    }
 
     useEffect(() => {
         loadQuiz();
+        loadTotalPoints();
     }, [qid]);
 
     if (!quiz) {
@@ -70,7 +77,7 @@ export default function QuizDetails() {
             </div>
 
             <div className="mb-2">
-                <strong>Points:</strong> {quiz.points ?? 0 /* put sum of questions later */}
+                <strong>Points:</strong> {totalPoints !== null ? totalPoints : quiz.points ?? 0}
             </div>
 
             <div className="mb-2">

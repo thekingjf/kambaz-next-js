@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Button, Form } from "react-bootstrap";
 import * as quizClient from "../../client";
+import QuizQuestionsEditor from "../../components/QuizQuestionsEditor";
 
 type Quiz = {
   _id: string;
@@ -20,10 +21,13 @@ type Quiz = {
   timeLimitMinutes?: number;
 };
 
+type Tab = "DETAILS" | "QUESTIONS";
+
 export default function QuizEditor() { 
     const { cid, qid } = useParams() as { cid: string; qid: string };
     const router = useRouter();
     const [quiz, setQuiz] = useState<Quiz | null>(null);
+    const [activeTab, setActiveTab] = useState<Tab>("DETAILS");
 
     const loadQuiz = async () => {
         const data = await quizClient.findQuizById(qid);
@@ -75,92 +79,117 @@ export default function QuizEditor() {
     return (
         <div id="wd-quiz-editor">
             <h2>Quiz Editor – {quiz.title || "New Quiz"}</h2>
+            <div className="mb-3 border-bottom d-flex gap-2">
+                <Button
+                    variant={activeTab === "DETAILS" ? "dark" : "secondary"}
+                    size="sm"
+                    onClick={() => setActiveTab("DETAILS")}
+                >
+                    Details
+                </Button>
+                <Button
+                    variant={activeTab === "QUESTIONS" ? "dark" : "secondary"}
+                    size="sm"
+                    onClick={() => setActiveTab("QUESTIONS")}
+                >
+                    Questions
+                </Button>
+
+            </div>
+
             <hr />
-
-            <Form>
-                {/* TITLE */}
-                <Form.Group className="mb-3">
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control 
-                        type="text"
-                        value={quiz.title}
-                        onChange = {(e) => handleChange("title", e.target.value)}
-                    />
-                </Form.Group>
-
-                {/* DESCRIPTION */}
-                <Form.Group className="mb-3">
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control 
-                        as="textarea"
-                        rows={3}
-                        value={quiz.description ?? ""}
-                        onChange = {(e) => handleChange("description", e.target.value)}
-                    />
-                </Form.Group>
-
-                {/* AVAILABLE FROM */}
-                <Form.Group className="mb-3">
-                    <Form.Label>Available From</Form.Label>
-                    <Form.Control 
-                        type="date"
-                        value={quiz.availableDate?.slice(0, 10) || ""}
-                        onChange = {(e) => handleChange("availableDate", e.target.value)}
-                    />
-                </Form.Group>
-
-                {/* UNTIL */}
-                <Form.Group className="mb-3">
-                    <Form.Label>Until</Form.Label>
-                    <Form.Control 
-                        type="date"
-                        value={quiz.untilDate?.slice(0, 10) || ""}
-                        onChange = {(e) => handleChange("untilDate", e.target.value)}
-                    />
-                </Form.Group>
-
-                {/* DUE DATE */}
-                <Form.Group className="mb-3">
-                    <Form.Label>Due Date</Form.Label>
-                    <Form.Control 
-                        type="date"
-                        value={quiz.dueDate?.slice(0, 10) || ""}
-                        onChange = {(e) => handleChange("dueDate", e.target.value)}
-                    />
-                </Form.Group>
-
-                {/* SHUFFLE ANSWERS */}
-                <Form.Group className="mb-3">
-                    <Form.Check 
-                        type="checkbox"
-                        label="Shuffle answers"
-                        checked={quiz.shuffleAnswers ?? false}
-                        onChange = {(e) => handleChange("shuffleAnswers", e.target.checked)}
-                    />
-                </Form.Group>
-
-                {/* ENABLE TIME LIMIT */}
-                <Form.Group className="mb-3">
-                    <Form.Check 
-                        type="checkbox"
-                        label="Time Limit?"
-                        checked={quiz.timeLimitEnabled ?? false}
-                        onChange = {(e) => handleChange("timeLimitEnabled", e.target.checked)}
-                    />
-                </Form.Group>
-
-                {/* SET TIME LIMIT */}
-                {quiz.timeLimitEnabled && (
+            {activeTab === "DETAILS" && (
+                <Form>
+                    {/* TITLE */}
                     <Form.Group className="mb-3">
-                        <Form.Label>Time Limit (Minutes)</Form.Label>
+                        <Form.Label>Title</Form.Label>
                         <Form.Control 
-                            type="number"
-                            value={quiz.timeLimitMinutes ?? 20}
-                            onChange = {(e) => handleChange("timeLimitMinutes", Number(e.target.value))}
+                            type="text"
+                            value={quiz.title}
+                            onChange = {(e) => handleChange("title", e.target.value)}
                         />
                     </Form.Group>
-                )}
-            </Form>
+
+                    {/* DESCRIPTION */}
+                    <Form.Group className="mb-3">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control 
+                            as="textarea"
+                            rows={3}
+                            value={quiz.description ?? ""}
+                            onChange = {(e) => handleChange("description", e.target.value)}
+                        />
+                    </Form.Group>
+
+                    {/* AVAILABLE FROM */}
+                    <Form.Group className="mb-3">
+                        <Form.Label>Available From</Form.Label>
+                        <Form.Control 
+                            type="date"
+                            value={quiz.availableDate?.slice(0, 10) || ""}
+                            onChange = {(e) => handleChange("availableDate", e.target.value)}
+                        />
+                    </Form.Group>
+
+                    {/* UNTIL */}
+                    <Form.Group className="mb-3">
+                        <Form.Label>Until</Form.Label>
+                        <Form.Control 
+                            type="date"
+                            value={quiz.untilDate?.slice(0, 10) || ""}
+                            onChange = {(e) => handleChange("untilDate", e.target.value)}
+                        />
+                    </Form.Group>
+
+                    {/* DUE DATE */}
+                    <Form.Group className="mb-3">
+                        <Form.Label>Due Date</Form.Label>
+                        <Form.Control 
+                            type="date"
+                            value={quiz.dueDate?.slice(0, 10) || ""}
+                            onChange = {(e) => handleChange("dueDate", e.target.value)}
+                        />
+                    </Form.Group>
+
+                    {/* SHUFFLE ANSWERS */}
+                    <Form.Group className="mb-3">
+                        <Form.Check 
+                            type="checkbox"
+                            label="Shuffle answers"
+                            checked={quiz.shuffleAnswers ?? false}
+                            onChange = {(e) => handleChange("shuffleAnswers", e.target.checked)}
+                        />
+                    </Form.Group>
+
+                    {/* ENABLE TIME LIMIT */}
+                    <Form.Group className="mb-3">
+                        <Form.Check 
+                            type="checkbox"
+                            label="Time Limit?"
+                            checked={quiz.timeLimitEnabled ?? false}
+                            onChange = {(e) => handleChange("timeLimitEnabled", e.target.checked)}
+                        />
+                    </Form.Group>
+
+                    {/* SET TIME LIMIT */}
+                    {quiz.timeLimitEnabled && (
+                        <Form.Group className="mb-3">
+                            <Form.Label>Time Limit (Minutes)</Form.Label>
+                            <Form.Control 
+                                type="number"
+                                value={quiz.timeLimitMinutes ?? 20}
+                                onChange = {(e) => handleChange("timeLimitMinutes", Number(e.target.value))}
+                            />
+                        </Form.Group>
+                    )}
+                </Form>
+            )}
+
+            {activeTab === "QUESTIONS" && (
+                <div className="mt-3">
+                    <QuizQuestionsEditor quizId={qid} />
+                </div>
+            )}
             <div className="mt-3 d-flex gap-2">
                 <Button variant="primary" onClick = {() => handleSave(false)}>
                     Save

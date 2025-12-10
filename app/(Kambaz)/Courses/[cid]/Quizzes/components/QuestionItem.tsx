@@ -29,9 +29,10 @@ type QuestionItemProps = {
   question: Question;
   onUpdated: (question: Question) => void;
   onDeleted: (questionId: string) => void;
+  initiallyEditing?: boolean;
 };
 
-export default function QuestionItem({ question, onUpdated, onDeleted, }: QuestionItemProps) {
+export default function QuestionItem({ question, onUpdated, onDeleted, initiallyEditing, }: QuestionItemProps) {
     const [editing, setEditing] = useState(false);
     const [draft, setDraft] = useState<Question>(question);
 
