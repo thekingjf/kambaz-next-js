@@ -99,16 +99,6 @@ export default function QuizEditor() {
                     />
                 </Form.Group>
 
-                {/* POINTS */}
-                <Form.Group className="mb-3">
-                    <Form.Label>Points</Form.Label>
-                    <Form.Control 
-                        type="number"
-                        value={quiz.points}
-                        onChange = {(e) => handleChange("points", Number(e.target.value))}
-                    />
-                </Form.Group>
-
                 {/* AVAILABLE FROM */}
                 <Form.Group className="mb-3">
                     <Form.Label>Available From</Form.Label>

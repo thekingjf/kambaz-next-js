@@ -20,7 +20,7 @@ export type Quiz = {
     points: number;
 };
 
-export default function Quizzes() {
+export default function QuizList() {
     const { cid } = useParams() as { cid: string };
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const router = useRouter();
