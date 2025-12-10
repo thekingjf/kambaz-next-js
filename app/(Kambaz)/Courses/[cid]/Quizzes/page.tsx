@@ -20,7 +20,7 @@ export type Quiz = {
     points: number;
 };
 
-export default function QuizList() {
+export default function Quizzes() {
     const { cid } = useParams() as { cid: string };
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const router = useRouter();
@@ -33,7 +33,6 @@ export default function QuizList() {
     const handleAddQuizzes = async () => {
         const created = await quizClient.createQuizForCourse(cid);
         setQuizzes([...quizzes, created]);
-        router.push(`/Courses/${cid}/Quizzes/${created._id}/edit`);
     }
 
     const handleDeleteQuiz = async (quizId: string) => {
