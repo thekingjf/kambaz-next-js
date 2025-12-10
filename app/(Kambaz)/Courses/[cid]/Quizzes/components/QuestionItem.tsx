@@ -33,7 +33,7 @@ type QuestionItemProps = {
 };
 
 export default function QuestionItem({ question, onUpdated, onDeleted, initiallyEditing, }: QuestionItemProps) {
-    const [editing, setEditing] = useState(false);
+    const [editing, setEditing] = useState(initiallyEditing ?? false);
     const [draft, setDraft] = useState<Question>(question);
 
     useEffect(() => {
