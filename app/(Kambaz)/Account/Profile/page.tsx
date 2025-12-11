@@ -49,6 +49,7 @@ export default function Profile() {
           id="wd-username"
           className="mb-2"
           defaultValue={profile.username}
+          placeholder="usernam"
           onChange={(e) =>
             setProfile({ ...profile, username: e.target.value })
           }
@@ -57,6 +58,7 @@ export default function Profile() {
           id="wd-password"
           className="mb-2"
           defaultValue={profile.password}
+          placeholder="password"
           onChange={(e) =>
             setProfile({ ...profile, password: e.target.value })
           }
@@ -65,6 +67,7 @@ export default function Profile() {
           id="wd-firstname"
           className="mb-2"
           defaultValue={profile.firstName}
+          placeholder="first name"
           onChange={(e) =>
             setProfile({ ...profile, firstName: e.target.value })
           }
@@ -73,6 +76,7 @@ export default function Profile() {
           id="wd-lastname"
           className="mb-2"
           defaultValue={profile.lastName}
+          placeholder="last name"
           onChange={(e) =>
             setProfile({ ...profile, lastName: e.target.value })
           }
@@ -82,6 +86,7 @@ export default function Profile() {
           className="mb-2"
           type="date"
           defaultValue={profile.dob}
+          placeholder="Date of Birth"
           onChange={(e) =>
             setProfile({ ...profile, dob: e.target.value })
           }
@@ -90,6 +95,7 @@ export default function Profile() {
           id="wd-email"
           className="mb-2"
           defaultValue={profile.email}
+          placeholder="Email"
           onChange={(e) =>
             setProfile({ ...profile, email: e.target.value })
           }
@@ -107,9 +113,11 @@ export default function Profile() {
           <option value="FACULTY">Faculty</option>
           <option value="STUDENT">Student</option>
         </select>
-        <button onClick={updateProfile}>
-            Update </button>
-        <Button onClick={signout} className="w-100 mb-2">
+
+        <Button variant="success" onClick={updateProfile}>
+          Update
+        </Button> 
+        <Button variant="danger" onClick={signout}>
           Sign out
         </Button>
         <Button onClick={() => dispatch(setCurrentUser(profile))}>
