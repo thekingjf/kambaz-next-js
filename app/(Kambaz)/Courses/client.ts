@@ -89,15 +89,3 @@ export const deleteModule = async (courseId: string, moduleId: string) => {
 
 
 
-
-export function findAllCourses(): any {
-  throw new Error("Function not implemented.");
-}
-
-export function unenrollUserFromCourse(courseId: string) {
-  throw new Error("Function not implemented.");
-}
-
-export function enrollUserInCourse(courseId: string) {
-  throw new Error("Function not implemented.");
-}
