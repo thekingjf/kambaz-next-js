@@ -22,7 +22,6 @@ export default function Profile() {
     dispatch(setCurrentUser(updatedProfile));
   };
 
-
   const signout = async () => {
     await client.signout();
     dispatch(setCurrentUser(null));
@@ -114,15 +113,12 @@ export default function Profile() {
           <option value="STUDENT">Student</option>
         </select>
 
-        <Button variant="success" onClick={updateProfile}>
-          Update
-        </Button> 
         <Button variant="danger" onClick={signout}>
           Sign out
         </Button>
-        <Button onClick={() => dispatch(setCurrentUser(profile))}>
+        <Button variant="primary" onClick={updateProfile}>
           Save
-        </Button>
+        </Button> 
       </div>
     </div>
   );

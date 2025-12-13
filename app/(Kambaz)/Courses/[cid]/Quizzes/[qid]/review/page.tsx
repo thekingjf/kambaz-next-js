@@ -24,8 +24,6 @@ export default function ReviewQuizPage() {
     const [lastAttempt, setLastAttempt] = useState<any | null>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-
-
     const loadData = async() => {
         const quiz = await client.findQuizById(qid);
         const questions = await client.findQuestionsForQuiz(qid);
@@ -46,6 +44,15 @@ export default function ReviewQuizPage() {
         loadData();
     }, [qid]);
 
+    const reviewAttempt = lastAttempt;
+    const answerByQuestionId = useMemo(() => {
+        const map: Record<string, any> = {};
+        reviewAttempt?.answers?.forEach((a: any) => {
+            map[a.questionId] = a;
+        });
+        return map;
+    }, [reviewAttempt]);
+
     if (!quiz) {
         return <div>Loading quiz...</div>;
     }
@@ -64,15 +71,6 @@ export default function ReviewQuizPage() {
             </div>
         );
     }
-
-    const reviewAttempt = lastAttempt;
-    const answerByQuestionId = useMemo(() => {
-        const map: Record<string, any> = {};
-        reviewAttempt?.answers?.forEach((a: any) => {
-            map[a.questionId] = a;
-        });
-        return map;
-    }, [reviewAttempt]);
 
     const canShowAnswers = () => {
         if (!reviewAttempt) return false;

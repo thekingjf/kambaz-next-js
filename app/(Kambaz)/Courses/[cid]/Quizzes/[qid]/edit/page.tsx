@@ -46,7 +46,7 @@ export default function QuizEditor() {
     }
 
     useEffect(() => {
-        loadQuiz()
+        loadQuiz();
     }, [qid]);
 
     const handleChange = (field : keyof Quiz, value : number | boolean | string | undefined) => {
@@ -351,6 +351,7 @@ export default function QuizEditor() {
                     <QuizQuestionsEditor quizId={qid} />
                 </div>
             )}
+
             <div className="mt-3 d-flex gap-2">
                 <Button variant="primary" onClick = {() => handleSave(false)}>
                     Save
